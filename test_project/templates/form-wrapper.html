@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+{{form_media.css}}
+
+<style type="text/css">
+  label {display: inline-block; width: 180px; } 
+  input {display: inline-block !important;} 
+</style>
+
+<div class="container">
+  <div class="col-md-12">
+    <form method="post" {% if files %} enctype="multipart/form-data"{% endif %}>
+      {% csrf_token %}
+      {% for field in form %}
+      {% if field.errors %}
+      <div class="control-group error">
+        <label class="control-label">{{ field.label }}</label> 
+        <div class="controls">{{ field }}
+          <span class="help-inline">
+            {% for error in  field.errors %}{{ error }}{% endfor %}
+          </span>
+        </div>
+      </div>
+      {% else %}
+      <div class="form-group">
+        <label for="{{ field.auto_id }}">{{ field.label }}:</label> 
+        {{ field }}
+        {% if field.help_text %}
+        <br>
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% endfor %}
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block stylesheet %}
+
+{% if form.media.css %}
+    {{form.media.css}}
+
+
+{% endif %}
+{% endblock %}
+
+<!-- Load Js -->
+{% block javascript %}
+        {% if form.media.js %}
+            {{form.media.js}}
+        {% endif %}
+      
+{% endblock %}
