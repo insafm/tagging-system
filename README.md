@@ -7,7 +7,7 @@ Tagging System
 
 Installation Steps:
 -----------------------------
-- git clone URL
+- git clone https://github.com/insafm/tagging-system.git
 
 - cd tagging-system
 
